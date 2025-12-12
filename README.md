@@ -95,17 +95,18 @@ El sistema está diseñado para poder ejecutarse múltiples veces sin errores:
 
 ```bash
 docker compose up -d
-
+```
 
 Acceder a Airflow:
 
+```bash
 http://localhost:8080
 
 Usuario por defecto:
 
     Usuario: airflow
     Password: airflow
-
+```
 ---
 
 ## 🔍 Consultas de verificación
@@ -116,7 +117,7 @@ SELECT * FROM traffic_counts_raw LIMIT 10;
 SELECT * FROM weather_raw ORDER BY weather_id DESC LIMIT 5;
 SELECT * FROM incidents_raw ORDER BY ts DESC;
 
- 
+```
 ---
 
 ## 📁 Estructura del proyecto
