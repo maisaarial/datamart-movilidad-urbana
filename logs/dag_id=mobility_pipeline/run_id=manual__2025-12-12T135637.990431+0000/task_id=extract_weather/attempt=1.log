@@ -1,0 +1,22 @@
+[2025-12-12T13:56:46.676+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-12T13:56:46.714+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: mobility_pipeline.extract_weather manual__2025-12-12T13:56:37.990431+00:00 [queued]>
+[2025-12-12T13:56:46.727+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: mobility_pipeline.extract_weather manual__2025-12-12T13:56:37.990431+00:00 [queued]>
+[2025-12-12T13:56:46.733+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-12-12T13:56:46.753+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): extract_weather> on 2025-12-12 13:56:37.990431+00:00
+[2025-12-12T13:56:46.762+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'mobility_pipeline', 'extract_weather', 'manual__2025-12-12T13:56:37.990431+00:00', '--job-id', '64', '--raw', '--subdir', 'DAGS_FOLDER/mobility_pipeline_dag.py', '--cfg-path', '/tmp/tmp4x6_wopc']
+[2025-12-12T13:56:46.765+0000] {standard_task_runner.py:91} INFO - Job 64: Subtask extract_weather
+[2025-12-12T13:56:46.765+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=198) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-12T13:56:46.766+0000] {standard_task_runner.py:63} INFO - Started process 199 to run task
+[2025-12-12T13:56:46.991+0000] {task_command.py:426} INFO - Running <TaskInstance: mobility_pipeline.extract_weather manual__2025-12-12T13:56:37.990431+00:00 [running]> on host cf3c8a0617d2
+[2025-12-12T13:56:47.189+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='mobility_pipeline' AIRFLOW_CTX_TASK_ID='extract_weather' AIRFLOW_CTX_EXECUTION_DATE='2025-12-12T13:56:37.990431+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-12T13:56:37.990431+00:00'
+[2025-12-12T13:56:47.191+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-12T13:56:47.210+0000] {logging_mixin.py:188} INFO - Llamando a API de Open-Meteo: https://api.open-meteo.com/v1/forecast?latitude=43.26&longitude=-2.93&hourly=temperature_2m,precipitation,wind_speed_10m&timezone=auto
+[2025-12-12T13:56:54.445+0000] {base.py:84} INFO - Using connection ID '***_postgres' for task execution.
+[2025-12-12T13:56:54.467+0000] {logging_mixin.py:188} INFO - Insertando datos en weather_raw...
+[2025-12-12T13:56:55.020+0000] {logging_mixin.py:188} INFO - OK: Datos insertados en weather_raw desde API.
+[2025-12-12T13:56:55.025+0000] {python.py:237} INFO - Done. Returned value was: None
+[2025-12-12T13:56:55.028+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-12T13:56:55.042+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=***_pipeline, task_id=extract_weather, run_id=manual__2025-12-12T13:56:37.990431+00:00, execution_date=20251212T135637, start_date=20251212T135646, end_date=20251212T135655
+[2025-12-12T13:56:55.109+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-12-12T13:56:55.141+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-12-12T13:56:55.145+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

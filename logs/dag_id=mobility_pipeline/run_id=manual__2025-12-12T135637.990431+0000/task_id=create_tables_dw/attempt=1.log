@@ -1,0 +1,126 @@
+[2025-12-12T13:56:40.808+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-12T13:56:40.851+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: mobility_pipeline.create_tables_dw manual__2025-12-12T13:56:37.990431+00:00 [queued]>
+[2025-12-12T13:56:40.863+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: mobility_pipeline.create_tables_dw manual__2025-12-12T13:56:37.990431+00:00 [queued]>
+[2025-12-12T13:56:40.865+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-12-12T13:56:40.883+0000] {taskinstance.py:2330} INFO - Executing <Task(PostgresOperator): create_tables_dw> on 2025-12-12 13:56:37.990431+00:00
+[2025-12-12T13:56:40.898+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=191) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-12T13:56:40.895+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'mobility_pipeline', 'create_tables_dw', 'manual__2025-12-12T13:56:37.990431+00:00', '--job-id', '61', '--raw', '--subdir', 'DAGS_FOLDER/mobility_pipeline_dag.py', '--cfg-path', '/tmp/tmpd96ssx6_']
+[2025-12-12T13:56:40.900+0000] {standard_task_runner.py:63} INFO - Started process 193 to run task
+[2025-12-12T13:56:40.900+0000] {standard_task_runner.py:91} INFO - Job 61: Subtask create_tables_dw
+[2025-12-12T13:56:41.440+0000] {task_command.py:426} INFO - Running <TaskInstance: mobility_pipeline.create_tables_dw manual__2025-12-12T13:56:37.990431+00:00 [running]> on host cf3c8a0617d2
+[2025-12-12T13:56:41.605+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='mobility_pipeline' AIRFLOW_CTX_TASK_ID='create_tables_dw' AIRFLOW_CTX_EXECUTION_DATE='2025-12-12T13:56:37.990431+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-12T13:56:37.990431+00:00'
+[2025-12-12T13:56:41.606+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-12T13:56:41.626+0000] {sql.py:276} INFO - Executing: -- =========================
+-- TABLAS RAW / STAGING (idempotente)
+-- =========================
+
+CREATE TABLE IF NOT EXISTS trips_raw (
+    trip_id SERIAL PRIMARY KEY,
+    trip_date DATE NOT NULL,
+    trip_start_time TIME NOT NULL,
+    origin_zone VARCHAR(100) NOT NULL,
+    dest_zone VARCHAR(100) NOT NULL,
+    transport_mode VARCHAR(50) NOT NULL,
+    distance_km NUMERIC(6,2) NOT NULL,
+    duration_min INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS traffic_counts_raw (
+    traffic_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    vehicles_count INTEGER NOT NULL,
+    bikes_count INTEGER NOT NULL,
+    pedestrians_count INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS weather_raw (
+    weather_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    temp_avg_c NUMERIC(4,1),
+    rain_mm NUMERIC(6,2),
+    wind_speed_kmh NUMERIC(6,2),
+    raw_payload JSONB NOT NULL
+);
+
+-- incidents_raw: lo creamos de forma “segura” (evita errores raros con XML)
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'public' AND table_name = 'incidents_raw'
+  ) THEN
+    CREATE TABLE incidents_raw (
+      id SERIAL PRIMARY KEY,
+      incident_id TEXT NOT NULL,
+      ts TIMESTAMP NOT NULL,
+      zone TEXT NOT NULL,
+      incident_type TEXT NOT NULL,
+      severity TEXT NOT NULL,
+      description TEXT,
+      raw_payload XML NOT NULL
+    );
+  END IF;
+END $$;
+[2025-12-12T13:56:41.684+0000] {base.py:84} INFO - Using connection ID '***_postgres' for task execution.
+[2025-12-12T13:56:41.699+0000] {base.py:84} INFO - Using connection ID '***_postgres' for task execution.
+[2025-12-12T13:56:41.734+0000] {sql.py:470} INFO - Running statement: -- =========================
+-- TABLAS RAW / STAGING (idempotente)
+-- =========================
+
+CREATE TABLE IF NOT EXISTS trips_raw (
+    trip_id SERIAL PRIMARY KEY,
+    trip_date DATE NOT NULL,
+    trip_start_time TIME NOT NULL,
+    origin_zone VARCHAR(100) NOT NULL,
+    dest_zone VARCHAR(100) NOT NULL,
+    transport_mode VARCHAR(50) NOT NULL,
+    distance_km NUMERIC(6,2) NOT NULL,
+    duration_min INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS traffic_counts_raw (
+    traffic_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    vehicles_count INTEGER NOT NULL,
+    bikes_count INTEGER NOT NULL,
+    pedestrians_count INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS weather_raw (
+    weather_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    temp_avg_c NUMERIC(4,1),
+    rain_mm NUMERIC(6,2),
+    wind_speed_kmh NUMERIC(6,2),
+    raw_payload JSONB NOT NULL
+);
+
+-- incidents_raw: lo creamos de forma “segura” (evita errores raros con XML)
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.tables
+    WHERE table_schema = 'public' AND table_name = 'incidents_raw'
+  ) THEN
+    CREATE TABLE incidents_raw (
+      id SERIAL PRIMARY KEY,
+      incident_id TEXT NOT NULL,
+      ts TIMESTAMP NOT NULL,
+      zone TEXT NOT NULL,
+      incident_type TEXT NOT NULL,
+      severity TEXT NOT NULL,
+      description TEXT,
+      raw_payload XML NOT NULL
+    );
+  END IF;
+END $$;, parameters: None
+[2025-12-12T13:56:41.742+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-12T13:56:41.804+0000] {taskinstance.py:1206} INFO - Marking task as SUCCESS. dag_id=***_pipeline, task_id=create_tables_dw, run_id=manual__2025-12-12T13:56:37.990431+00:00, execution_date=20251212T135637, start_date=20251212T135640, end_date=20251212T135641
+[2025-12-12T13:56:41.901+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2025-12-12T13:56:41.932+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/models/baseoperator.py:1296 AirflowProviderDeprecationWarning: Call to deprecated class PostgresOperator. (Please use `***.providers.common.sql.operators.sql.SQLExecuteQueryOperator`.Also, you can provide `hook_params={'schema': <database>}`.)
+[2025-12-12T13:56:41.954+0000] {taskinstance.py:3498} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-12-12T13:56:42.176+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

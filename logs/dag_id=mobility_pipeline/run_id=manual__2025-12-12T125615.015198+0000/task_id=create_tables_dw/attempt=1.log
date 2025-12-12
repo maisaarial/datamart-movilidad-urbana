@@ -1,0 +1,128 @@
+[2025-12-12T12:56:55.973+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-12T12:56:56.373+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: mobility_pipeline.create_tables_dw manual__2025-12-12T12:56:15.015198+00:00 [queued]>
+[2025-12-12T12:56:56.390+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: mobility_pipeline.create_tables_dw manual__2025-12-12T12:56:15.015198+00:00 [queued]>
+[2025-12-12T12:56:56.391+0000] {taskinstance.py:2306} INFO - Starting attempt 1 of 1
+[2025-12-12T12:56:56.414+0000] {taskinstance.py:2330} INFO - Executing <Task(PostgresOperator): create_tables_dw> on 2025-12-12 12:56:15.015198+00:00
+[2025-12-12T12:56:56.486+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'mobility_pipeline', 'create_tables_dw', 'manual__2025-12-12T12:56:15.015198+00:00', '--job-id', '51', '--raw', '--subdir', 'DAGS_FOLDER/mobility_pipeline_dag.py', '--cfg-path', '/tmp/tmpft6jhf1q']
+[2025-12-12T12:56:56.494+0000] {standard_task_runner.py:91} INFO - Job 51: Subtask create_tables_dw
+[2025-12-12T12:56:56.720+0000] {task_command.py:426} INFO - Running <TaskInstance: mobility_pipeline.create_tables_dw manual__2025-12-12T12:56:15.015198+00:00 [running]> on host cf3c8a0617d2
+[2025-12-12T12:56:56.918+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=735) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-12T12:56:56.920+0000] {standard_task_runner.py:63} INFO - Started process 738 to run task
+[2025-12-12T12:56:58.087+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='mobility_pipeline' AIRFLOW_CTX_TASK_ID='create_tables_dw' AIRFLOW_CTX_EXECUTION_DATE='2025-12-12T12:56:15.015198+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-12T12:56:15.015198+00:00'
+[2025-12-12T12:56:58.101+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-12T12:56:58.207+0000] {sql.py:276} INFO - Executing: -- =========================
+-- TABLAS RAW / STAGING
+-- =========================
+
+CREATE TABLE trips_raw (
+    trip_id SERIAL PRIMARY KEY,
+    trip_date DATE NOT NULL,
+    trip_start_time TIME NOT NULL,
+    origin_zone VARCHAR(100) NOT NULL,
+    dest_zone VARCHAR(100) NOT NULL,
+    transport_mode VARCHAR(50) NOT NULL,
+    distance_km NUMERIC(6,2) NOT NULL,
+    duration_min INTEGER NOT NULL
+);
+
+CREATE TABLE traffic_counts_raw (
+    traffic_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    vehicles_count INTEGER NOT NULL,
+    bikes_count INTEGER NOT NULL,
+    pedestrians_count INTEGER NOT NULL
+);
+
+CREATE TABLE weather_raw (
+    weather_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    temp_avg_c NUMERIC(4,1),
+    rain_mm NUMERIC(6,2),
+    wind_speed_kmh NUMERIC(6,2),
+    raw_payload JSONB NOT NULL
+);
+
+CREATE TABLE incidents_raw (
+    id SERIAL PRIMARY KEY,
+    incident_id TEXT NOT NULL,
+    ts TIMESTAMP NOT NULL,
+    zone TEXT NOT NULL,
+    incident_type TEXT NOT NULL,
+    severity TEXT NOT NULL,
+    description TEXT,
+    raw_payload XML NOT NULL
+);
+[2025-12-12T12:56:58.535+0000] {base.py:84} INFO - Using connection ID '***_postgres' for task execution.
+[2025-12-12T12:56:58.993+0000] {base.py:84} INFO - Using connection ID '***_postgres' for task execution.
+[2025-12-12T12:56:59.011+0000] {sql.py:470} INFO - Running statement: -- =========================
+-- TABLAS RAW / STAGING
+-- =========================
+
+CREATE TABLE trips_raw (
+    trip_id SERIAL PRIMARY KEY,
+    trip_date DATE NOT NULL,
+    trip_start_time TIME NOT NULL,
+    origin_zone VARCHAR(100) NOT NULL,
+    dest_zone VARCHAR(100) NOT NULL,
+    transport_mode VARCHAR(50) NOT NULL,
+    distance_km NUMERIC(6,2) NOT NULL,
+    duration_min INTEGER NOT NULL
+);
+
+CREATE TABLE traffic_counts_raw (
+    traffic_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    vehicles_count INTEGER NOT NULL,
+    bikes_count INTEGER NOT NULL,
+    pedestrians_count INTEGER NOT NULL
+);
+
+CREATE TABLE weather_raw (
+    weather_id SERIAL PRIMARY KEY,
+    date DATE NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    temp_avg_c NUMERIC(4,1),
+    rain_mm NUMERIC(6,2),
+    wind_speed_kmh NUMERIC(6,2),
+    raw_payload JSONB NOT NULL
+);
+
+CREATE TABLE incidents_raw (
+    id SERIAL PRIMARY KEY,
+    incident_id TEXT NOT NULL,
+    ts TIMESTAMP NOT NULL,
+    zone TEXT NOT NULL,
+    incident_type TEXT NOT NULL,
+    severity TEXT NOT NULL,
+    description TEXT,
+    raw_payload XML NOT NULL
+);, parameters: None
+[2025-12-12T12:56:59.193+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-12T12:56:59.195+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/operators/sql.py", line 282, in execute
+    output = hook.run(
+             ^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 418, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 475, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.DuplicateTable: relation "trips_raw" already exists
+
+[2025-12-12T12:57:00.957+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=***_pipeline, task_id=create_tables_dw, run_id=manual__2025-12-12T12:56:15.015198+00:00, execution_date=20251212T125615, start_date=20251212T125656, end_date=20251212T125700
+[2025-12-12T12:57:01.813+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 51 for task create_tables_dw (relation "trips_raw" already exists
+; 738)
+[2025-12-12T12:57:02.033+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2025-12-12T12:57:03.227+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<incidents date="2025-12-12" city="Bilbao">
+  <incident>
+    <incident_id>INC-001</incident_id>
+    <timestamp>2025-12-12T07:45:00</timestamp>
+    <zone>Centro</zone>
+    <type>ACCIDENTE</type>
+    <severity>ALTA</severity>
+    <description>Accidente con dos vehículos, carril derecho cortado.</description>
+  </incident>
+  <incident>
+    <incident_id>INC-002</incident_id>
+    <timestamp>2025-12-12T08:20:00</timestamp>
+    <zone>Deusto</zone>
+    <type>OBRAS</type>
+    <severity>MEDIA</severity>
+    <description>Obras en vía, reducción a un carril.</description>
+  </incident>
+  <incident>
+    <incident_id>INC-003</incident_id>
+    <timestamp>2025-12-12T09:05:00</timestamp>
+    <zone>Basurto</zone>
+    <type>RETENCION</type>
+    <severity>BAJA</severity>
+    <description>Retenciones puntuales por hora punta.</description>
+  </incident>
+</incidents>

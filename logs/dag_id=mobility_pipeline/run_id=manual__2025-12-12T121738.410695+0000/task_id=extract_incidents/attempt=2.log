@@ -1,0 +1,45 @@
+[2025-12-12T12:25:26.257+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2025-12-12T12:25:29.724+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: mobility_pipeline.extract_incidents manual__2025-12-12T12:17:38.410695+00:00 [queued]>
+[2025-12-12T12:25:30.157+0000] {taskinstance.py:2076} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: mobility_pipeline.extract_incidents manual__2025-12-12T12:17:38.410695+00:00 [queued]>
+[2025-12-12T12:25:30.161+0000] {taskinstance.py:2306} INFO - Starting attempt 2 of 2
+[2025-12-12T12:25:30.768+0000] {taskinstance.py:2330} INFO - Executing <Task(PythonOperator): extract_incidents> on 2025-12-12 12:17:38.410695+00:00
+[2025-12-12T12:25:31.863+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'mobility_pipeline', 'extract_incidents', 'manual__2025-12-12T12:17:38.410695+00:00', '--job-id', '26', '--raw', '--subdir', 'DAGS_FOLDER/mobility_pipeline_dag.py', '--cfg-path', '/tmp/tmpub5tpkbq']
+[2025-12-12T12:25:33.080+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=397) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-12-12T12:25:33.082+0000] {standard_task_runner.py:63} INFO - Started process 398 to run task
+[2025-12-12T12:25:33.078+0000] {standard_task_runner.py:91} INFO - Job 26: Subtask extract_incidents
+[2025-12-12T12:25:37.546+0000] {task_command.py:426} INFO - Running <TaskInstance: mobility_pipeline.extract_incidents manual__2025-12-12T12:17:38.410695+00:00 [running]> on host cf3c8a0617d2
+[2025-12-12T12:25:40.183+0000] {taskinstance.py:2648} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='mobility_pipeline' AIRFLOW_CTX_TASK_ID='extract_incidents' AIRFLOW_CTX_EXECUTION_DATE='2025-12-12T12:17:38.410695+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-12-12T12:17:38.410695+00:00'
+[2025-12-12T12:25:40.343+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2025-12-12T12:25:44.335+0000] {base.py:84} INFO - Using connection ID '***_postgres' for task execution.
+[2025-12-12T12:25:45.429+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2025-12-12T12:25:45.431+0000] {taskinstance.py:2905} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/src/generate_incidents.py", line 43, in generate_incidents
+    cur.execute(
+psycopg2.errors.UndefinedColumn: column "type" of relation "incidents_raw" does not exist
+LINE 3:               (incident_id, ts, zone, type, severity, descri...
+                                              ^
+
+[2025-12-12T12:25:46.426+0000] {taskinstance.py:1206} INFO - Marking task as FAILED. dag_id=***_pipeline, task_id=extract_incidents, run_id=manual__2025-12-12T12:17:38.410695+00:00, execution_date=20251212T121738, start_date=20251212T122529, end_date=20251212T122546
+[2025-12-12T12:25:46.615+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 26 for task extract_incidents (column "type" of relation "incidents_raw" does not exist
+LINE 3:               (incident_id, ts, zone, type, severity, descri...
+                                              ^
+; 398)
+[2025-12-12T12:25:47.098+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2025-12-12T12:25:47.161+0000] {taskinstance.py:3498} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-12-12T12:25:47.417+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
