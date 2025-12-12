@@ -121,7 +121,7 @@ SELECT * FROM incidents_raw ORDER BY ts DESC;
 ---
 
 ## 📁 Estructura del proyecto
-
+```pgsql
 .
 ├── dags/
 │   └── mobility_pipeline_dag.py
@@ -139,3 +139,4 @@ SELECT * FROM incidents_raw ORDER BY ts DESC;
 ├── docker-compose.yml
 ├── README.md
 └── diagrama_arquitectura_movilidad.png
+```
