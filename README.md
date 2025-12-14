@@ -1,4 +1,4 @@
-# 🚦 DataMart de Movilidad Urbana — Integración de Datos
+# DataMart de Movilidad Urbana — Integración de Datos
 
 Proyecto de integración de datos desarrollado para la asignatura **Arquitectura Tecnológica para Big Data**.
 
@@ -6,7 +6,7 @@ El sistema integra datos de movilidad urbana procedentes de **fuentes heterogén
 
 ---
 
-## 📌 Objetivo del proyecto
+## Objetivo del proyecto
 
 Diseñar e implementar una arquitectura que permita:
 
@@ -17,7 +17,7 @@ Diseñar e implementar una arquitectura que permita:
 
 ---
 
-## 🏗️ Arquitectura del sistema
+## Arquitectura del sistema
 
 El sistema se compone de:
 
@@ -26,11 +26,11 @@ El sistema se compone de:
 - **PostgreSQL** como almacenamiento (RAW + DataMart)
 - **Docker Compose** para el despliegue
 
-📌 Ver diagrama en el informe. 
+Ver diagrama en el informe. 
 
 ---
 
-## 📥 Fuentes de datos integradas
+## Fuentes de datos integradas
 
 | Fuente | Tipo | Tabla destino |
 |-----|-----|-----|
@@ -41,7 +41,7 @@ El sistema se compone de:
 
 ---
 
-## 🧠 Orquestación con Apache Airflow
+## Orquestación con Apache Airflow
 
 El pipeline principal está definido en el DAG: mobility_pipeline
 
@@ -57,7 +57,7 @@ El pipeline principal está definido en el DAG: mobility_pipeline
 
 ---
 
-## 🗄️ Modelo de datos
+## Modelo de datos
 
 ### Tablas RAW / Staging
 
@@ -75,7 +75,7 @@ El pipeline principal está definido en el DAG: mobility_pipeline
 
 ---
 
-## 🔁 Idempotencia
+## Idempotencia
 
 El sistema está diseñado para poder ejecutarse múltiples veces sin errores:
 
@@ -85,7 +85,7 @@ El sistema está diseñado para poder ejecutarse múltiples veces sin errores:
 
 ---
 
-## 🚀 Despliegue del proyecto
+## Despliegue del proyecto
 
 ### Requisitos
 - Docker
@@ -109,7 +109,7 @@ Usuario por defecto:
 ```
 ---
 
-## 🔍 Consultas de verificación
+## Consultas de verificación
 
 ```sql
 SELECT * FROM trips_raw LIMIT 10;
@@ -120,7 +120,7 @@ SELECT * FROM incidents_raw ORDER BY ts DESC;
 ```
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 ```pgsql
 .
 ├── dags/
