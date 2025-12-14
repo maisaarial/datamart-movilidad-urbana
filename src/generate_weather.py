@@ -54,8 +54,7 @@ def generate_weather():
 
     print("Insertando datos en weather_raw...")
 
-    # OJO: tu columna de fecha se llama "date"
-    # Si quieres evitar duplicados por día/zona:
+    # Evitar duplicados por día/zona:
     cur.execute('DELETE FROM weather_raw WHERE date = %s AND zone = %s', (today, "Ciudad"))
 
     cur.execute(

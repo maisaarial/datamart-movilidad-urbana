@@ -35,7 +35,6 @@ def generate_incidents(xml_path="/opt/airflow/data/raw/incidents.xml"):
     conn = hook.get_conn()
     cur = conn.cursor()
 
-    # RAW: lo más simple y robusto es insertar (sin DELETE previo)
     for incident_id, timestamp, zone, incident_type, severity, description in incidents:
         cur.execute(
             """
