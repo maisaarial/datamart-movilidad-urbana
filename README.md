@@ -137,6 +137,5 @@ SELECT * FROM incidents_raw ORDER BY ts DESC;
 ├── sql/
 │   └── create_tables_dw.sql
 ├── docker-compose.yml
-├── README.md
-└── diagrama_arquitectura_movilidad.png
+└── README.md
 ```
